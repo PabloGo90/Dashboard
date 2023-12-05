@@ -1,0 +1,40 @@
+﻿@using Dashboard.Models
+@model ModInfo
+@{
+
+    ViewBag.Title = @Model.Menu.Nombre;
+    ViewBag.PageTitle = @Model.TituloNombre;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Filtros*@
+<div class="pt-2 pb-2 mb-3 border-bottom">
+    @Html.Partial("~/Views/Dashboard/Partials/_ModuleForm.cshtml", Model)
+</div>
+<p>@Model.descripcion</p>
+@*Informacion dashboard CARD*@
+<div class="row">
+    @foreach (ModItem item in Model.Items)
+    {
+        if (item.gLabels.Count > 0)
+        {
+            <div class="col-12 mb-3">
+                @Html.Partial("~/Views/Dashboard/Partials/_Module.cshtml", item)
+            </div>
+        }
+        else
+        {
+            <div class="col-12 mb-3">
+                <h4 class="card-header">@item.Nombre</h4>
+                <div class="card">
+                    <img src="@string.Format("{0}/Content/img/no-image.png", ViewBag.BaseUrl)" style="margin: 0 auto; width:30%; height:auto" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        No existen datos para generar Grafico
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

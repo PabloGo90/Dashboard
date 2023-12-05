@@ -1,0 +1,29 @@
+﻿@using Dashboard.Models
+@model UsuarioSistema
+
+@{
+    ViewBag.Title = "Actualizar usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-4">
+    <h5>Actualizar información usuario</h5>
+    @using (Html.BeginForm("PostEdit", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "row g-3" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Partial("~/Views/User/Partials/_UserForm.cshtml", Model == null ? new UsuarioSistema() : Model)
+        <div class="col-3">
+            <a href="@(ViewBag.BaseUrl + "/User/index")" class="btn btn-primary">Volver</a>
+        </div>
+        <div class="col-9">
+            <button type="submit" class="btn btn-primary custColor">Actualizar</button>
+        </div>
+    }
+</div>
+<script>
+    @if (ViewBag.ShowSuccessMsg == "Y")
+    {
+        @Html.Raw("$(document).ready(function () {bootbox.alert('Operación realizada con exito');});")
+    }
+</script>

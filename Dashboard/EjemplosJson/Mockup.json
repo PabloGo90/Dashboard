@@ -1,0 +1,95 @@
+{
+    "nombre": "Dashboard filtros 1",
+    "nombreAgrupadorMenu": "Ejemplo Filtros",
+    "descripcion": "descripcion",
+    "nombreMenu": "ej filtros f1",
+    "nombreIconoMenu": "file-earmark",
+    "orden": 2,
+    "activo": "Y",
+    "parametros": [
+      {
+        "nombreParSP": "var1",
+        "nombreParFiltro": "Fecha Desde",
+        "valorDefecto": "LASTMONTH",
+        "obligatorio": 1,
+        "tipo": "DATE",
+        "tipoHtml": "DATE",
+        "selectListSPData": "",
+        "orden": 1,
+        "largoMax": 0,
+        "validacion": "FECHA",
+        "validacionCondicion": "MENOROIGUAL",
+        "validacionCondicionValor": "Fecha Hasta",
+        "largoMin": 0,
+        "valorMin": "LASTMONTH",
+        "valorMax": "NOW"
+      },
+      {
+        "nombreParSP": "var2",
+        "nombreParFiltro": "Fecha Hasta",
+        "valorDefecto": "NOW",
+        "obligatorio": 1,
+        "tipo": "DATE",
+        "tipoHtml": "DATE",
+        "selectListSPData": "",
+        "orden": 2,
+        "largoMax": 0,
+        "validacion": "FECHA",
+        "validacionCondicion": "MAYOROIGUAL",
+        "validacionCondicionValor": "Fecha Desde",
+        "largoMin": 0,
+        "valorMin": "LASTMONTH",
+        "valorMax": "NEXTWEEK"
+      },
+      {
+        "nombreParSP": "var3",
+        "nombreParFiltro": "input numero",
+        "valorDefecto": "",
+        "obligatorio": 0,
+        "tipo": "INT",
+        "tipoHtml": "TEXT",
+        "selectListSPData": "",
+        "orden": 3,
+        "largoMax": 3,
+        "validacion": "",
+        "validacionCondicion": "",
+        "validacionCondicionValor": "",
+        "largoMin": 0,
+        "valorMin": "",
+        "valorMax": ""
+      },
+      {
+        "nombreParSP": "var4",
+        "nombreParFiltro": "input rut",
+        "valorDefecto": "",
+        "obligatorio": 1,
+        "tipo": "STRING",
+        "tipoHtml": "TEXT",
+        "selectListSPData": "",
+        "orden": 3,
+        "largoMax": 10,
+        "validacion": "RUT",
+        "validacionCondicion": "",
+        "validacionCondicionValor": "",
+        "largoMin": 8,
+        "valorMin": "",
+        "valorMax": ""
+      }
+    ],
+    "detalles": [
+      {
+        "nombreGrafico": "Grafico mockup",
+        "nombreCorto": "Mockup",
+        "tipoGrafico": "BAR",
+        "dataset": [
+          {
+            "dsTitulo": "DatosPrueba",
+            "nombreSP": "spGetDshMockup",
+            "getLabelFromColumn": "lbl",
+            "getDataFromColumn": "total",
+            "dataOperation": "SUM"
+          }
+        ]
+      }
+    ]
+  }

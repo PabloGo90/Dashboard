@@ -1,0 +1,95 @@
+﻿@using Dashboard.Models
+@model ModParametros
+
+@if (Model.comboBox_niv3.Count > 0)
+{
+    <div class="col-md-3 mb-2">
+        <label for="sel3_@(Model.htmlId)" class="form-label">@Model.NombreParFiltro nv3</label>
+        <select id="sel3_@(Model.htmlId)" class="form-select">
+            <option value="-1" data-parent="-1">Seleccione</option>
+            @foreach (ComboBox cbx in Model.comboBox_niv3)
+            {
+                <option @(cbx.selected ? "selected" : "") data-parent="@cbx.parent" value="@cbx.value">@cbx.name</option>
+            }
+        </select>
+    </div>
+}
+@if (Model.comboBox_niv2.Count > 0)
+{
+    <div class="col-md-3 mb-2">
+        <label for="sel2_@(Model.htmlId)" class="form-label">@Model.NombreParFiltro nv2</label>
+        <select id="sel2_@(Model.htmlId)" class="form-select">
+            <option value="-1" data-parent="-1">Seleccione</option>
+            @foreach (ComboBox cbx in Model.comboBox_niv2)
+            {
+                <option @(cbx.selected ? "selected" : "") data-parent="@cbx.parent" value="@cbx.value">@cbx.name</option>
+            }
+        </select>
+    </div>
+}
+@if (Model.comboBox_niv1.Count > 0)
+{
+    <div class="col-md-3 mb-2">
+        <label for="sel1_@(Model.htmlId)" class="form-label">@Model.NombreParFiltro</label>
+        <select id="sel1_@(Model.htmlId)" name="@Model.htmlName" class="form-select">
+            <option value="-1" data-parent="-1">Seleccione</option>
+            @foreach (ComboBox cbx in Model.comboBox_niv1)
+            {
+                <option @(cbx.selected ? "selected" : "") data-parent="@cbx.parent" value="@cbx.value">@cbx.name</option>
+            }
+        </select>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        //REGION SELECTS ANIDADOS
+        let sel1 = $("#sel1_@Model.htmlId");
+        let sel2 = $("#sel2_@Model.htmlId");
+        let sel3 = $("#sel3_@Model.htmlId");
+
+        filterSelectOptions = function (selectOption, parentVal) {
+            //Muestra las opciones segun la seleccion padre
+            $(selectOption).each(function (i) {
+                if ($(this).val() === "-1" || $(this).data("parent") === parentVal)
+                    $(this).show();
+                else
+                    $(this).hide();
+            });
+        }
+
+        //Configuracion inicial de selects.
+        if ($(sel1).val() != "-1") {
+            //Si ya existe seleccion al cargar la pagina, marca seleccion de select padres
+            if (sel2.length) {
+                $(sel2).val($(sel1).find(':selected').data('parent'));
+                filterSelectOptions("#sel1_@Model.htmlId option", $(sel2).val());
+            }
+            if (sel3.length) {
+                $(sel3).val($(sel2).find(':selected').data('parent'));
+                filterSelectOptions("#sel2_@Model.htmlId option", $(sel3).val());
+            }
+        }
+        else {
+            //Deja por defecto ninguna seleccionada y ademas limpia los select hijos
+            if (sel3.length)
+                filterSelectOptions("#sel2_@Model.htmlId option", "-1");
+            if (sel2.length)
+                filterSelectOptions("#sel1_@Model.htmlId option", "-1");
+        }
+
+        $(sel3).change(function () {
+            //Al cambiar select3, actualiza select hijos
+            filterSelectOptions("#sel2_@Model.htmlId option", $(this).val());
+            filterSelectOptions("#sel1_@Model.htmlId option", "-1");
+            $(sel2).val("-1");
+            $(sel1).val("-1");
+        });
+
+        $(sel2).change(function () {
+            //Al cambiar select2, actualiza select hijos
+            filterSelectOptions("#sel1_@Model.htmlId option", $(this).val());
+            $(sel1).val("-1");
+            $(sel1).prop('disabled', false);
+        });
+    });
+</script>

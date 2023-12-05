@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <div>
+        Error!!!
+        <p>@ViewBag.ErrorMsg</p>
+
+
+        <a href="@(ViewBag.BaseUrl + "/Home/Index")" class="btn btn-primary">Volver </a>
+    </div>
+</body>
+</html>

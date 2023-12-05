@@ -1,0 +1,193 @@
+﻿@using Dashboard.Models.Mantenedor
+@using Newtonsoft.Json;
+@model DashboardObj
+@{
+    ViewBag.Title = "Mantenedor";
+    ViewBag.PageTitle = "Mantenedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jsoneditor")
+
+<div class="row pt-2">
+    <div class="col-8">
+        <div id="jsoneditor" style="height:500px;"></div> @*@Html.Partial("~/Views/DashboardCrud/Partials/_Mantenedor.cshtml", Model)*@
+    </div>
+    <div class="col-4">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                @using (Html.BeginForm("Search", "DashboardCrud", FormMethod.Get))
+                {
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre dashboard (menu)" aria-label="Nombre dashboard" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
+                    </div>
+                }
+            </li>
+            <li class="list-group-item d-grid gap-2">
+                <button class="btn btn-primary" type="button" onclick="CrearNuevo()" id="button-addon2">Crear Nuevo</button>
+            </li>
+            <li class="list-group-item d-grid gap-2">
+                <button class="btn btn-warning" @(ViewBag.DashBoardID.ToString() == "0" ? "disabled" : "") type="button" onclick="@("Actualizar(" + ViewBag.DashBoardID + ")")" id="button-addon2">Actualizar</button>
+            </li>
+            <li class="list-group-item d-grid gap-2">
+                <button class="btn btn-danger" @(ViewBag.DashBoardID.ToString() == "0" ? "disabled" : "") type="button" onclick="@("Eliminar(" + ViewBag.DashBoardID + ")")" id="button-addon2">Borrar</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    const container = document.getElementById("jsoneditor")
+    const options = { mode: 'code' }
+    const editor = new JSONEditor(container, options)
+
+
+    $(document).ready(function () {
+        const defaultJson = jQuery.parseJSON('@Html.Raw(JsonConvert.SerializeObject(new DashboardObj()))');
+        const initialJson = jQuery.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model,
+                                                Newtonsoft.Json.Formatting.None,
+                                                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }
+                                                ))');
+
+        editor.set(initialJson)
+
+        // get json
+        const updatedJson = editor.get()
+
+        CrearNuevo = function () {
+            bootbox.confirm({
+                message: '¿Crear nuevo Dashboard?',
+                buttons: {
+                    confirm: {
+                        label: 'Si',
+                    },
+                    cancel: {
+                        label: 'Cancelar',
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            dataType: 'json',
+                            type: "POST",
+                            url: document.location.origin + '/DashboardCrud/Nuevo',
+                            cache: false,
+                            data: {
+                                'dashboard': editor.get()
+                                //,'__RequestVerificationToken': token
+                            },
+                            success: function (data) {
+                                if (data.success == false) {
+                                    console.log(data.resultMsg);
+                                    bootbox.alert(data.resultMsg);
+                                    return;
+                                }
+
+                                bootbox.alert('Operación realizada con exito',
+                                    function () {
+                                        window.location.href = "Index";
+                                    });
+
+                                //bootbox.alert('Operación realizada con exito');
+                                //editor.set(defaultJson);
+                            },
+                            error: function (jqXHR, exception) {
+                                console.log(jqXHR, exception);
+                            },
+                            complete: function () { }
+                        });
+                    }
+                }
+            });
+        }
+
+        Actualizar = function (id) {
+            bootbox.confirm({
+                message: '¿Actualizar Dashboard?',
+                buttons: {
+                    confirm: {
+                        label: 'Si',
+                    },
+                    cancel: {
+                        label: 'Cancelar',
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            dataType: 'json',
+                            type: "POST",
+                            url: document.location.origin + '/DashboardCrud/Actualiza',
+                            cache: false,
+                            data: {
+                                'id': id,
+                                'dashboard': editor.get()
+                                //,'__RequestVerificationToken': token
+                            },
+                            success: function (data) {
+                                if (data.success == false) {
+                                    console.log(data.resultMsg);
+                                    bootbox.alert(data.resultMsg);
+                                    return;
+                                }
+
+                                bootbox.alert('Operación realizada con exito',
+                                    function () {
+                                        window.location.href = "Index";
+                                    });
+                            },
+                            error: function (jqXHR, exception) {
+                                console.log(jqXHR, exception);
+                            },
+                            complete: function () { }
+                        });
+                    }
+                }
+            });
+        }
+
+        Eliminar = function (id) {
+            bootbox.confirm({
+                message: '¿Crear nuevo Dashboard?',
+                buttons: {
+                    confirm: {
+                        label: 'Si',
+                    },
+                    cancel: {
+                        label: 'Cancelar',
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            dataType: 'json',
+                            type: "POST",
+                            url: document.location.origin + '/DashboardCrud/Elimina',
+                            cache: false,
+                            data: {
+                                'id': id,
+                                //,'__RequestVerificationToken': token
+                            },
+                            success: function (data) {
+                                if (data.success == false) {
+                                    console.log(data.resultMsg);
+                                    bootbox.alert(data.resultMsg);
+                                    return;
+                                }
+
+                                bootbox.alert('Operación realizada con exito',
+                                    function () {
+                                        window.location.href = "Index";
+                                    });
+                            },
+                            error: function (jqXHR, exception) {
+                                console.log(jqXHR, exception);
+                            },
+                            complete: function () { }
+                        });
+                    }
+                }
+            });
+        }
+    });
+</script>

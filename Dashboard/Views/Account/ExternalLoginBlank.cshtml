@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<h2>Abriendo Dashboard en una nueva ventana...</h2>
+<script type="text/javascript">
+    var w = screen.availWidth - 10;
+    var h = screen.availHeight - 60;
+    var features = "width=" + w + ",height=" + h + ",";
+    features += "left=0,top=0,screenX=0,screenY=0,toolbar=no,menubar=yes,resizable=no,scrollbars=yes,location=no,directories=no,status=no";
+
+    window.open(document.location.origin + '@(ViewBag.BaseUrl)' + '/Account/ExternalLogin', '', features);
+    
+</script>

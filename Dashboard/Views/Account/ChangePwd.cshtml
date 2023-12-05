@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "ChangePwd";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("ChangePwd", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Usuario</label>
+        <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="@ViewBag.UserName">
+    </div>
+    <div class="mb-3">
+        <label for="pwdNew" class="form-label">Contraseña nueva</label>
+        <input type="password" class="form-control" id="pwdNew" name="pwdNew" onkeypress="return ValPassword(event);"  autocomplete="new-password"
+               pattern="@Html.Raw("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!$.$#% *? &amp;])([A-Za-z\\d$@$!$.$#% *? &amp;]|[^ ]){8,15}$")"
+               data-bs-toggle="tooltip" data-bs-title="@Html.Raw("Contraseña debe contener letras (mayúsculas, minúsculas), números y al menos un caracter especial (@ . _ - ! # % & *) (largo mínimo 8 y máximo 15 caracteres)")">
+    </div>
+    <div class="mb-3">
+        <label for="pwdNew2" class="form-label">Repita Contraseña</label>
+        <input type="password" class="form-control" id="pwdNew2" name="pwdNew2">
+    </div>
+    <button type="submit" class="btn btn-primary custColor">Cambiar contraseña</button>
+}
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

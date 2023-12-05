@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ExternalLogin";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Error!</strong>  @Html.ValidationSummary(false, "", new { @class = "" })
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2>Iniciando sesión</h2>
+
+@using (Html.BeginForm("LogIn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginform" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Usuario" id="Usuario" class="form-control" placeholder="Usuario" value="@ViewBag.UsuarioSic">
+    <input type="hidden" name="Password" id="Password" class="form-control" placeholder="Contraseña" minlength="4" value="nopass" required>
+}
+
+
+<script type="text/javascript">
+    $("#loginform").submit();
+</script>

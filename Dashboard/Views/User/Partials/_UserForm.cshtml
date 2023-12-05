@@ -1,0 +1,66 @@
+﻿@using Dashboard.Models
+@model UsuarioSistema
+
+<input type="hidden" id="idUser" name="idUser" value="@Model.idUser" />
+<div class="col-md-12">
+    <label for="nombreCompleto" class="form-label">Nombre completo</label>
+    <input type="text" class="form-control" id="nombreCompleto" onkeypress="return ValObservac(event);" name="nombreCompleto"
+           pattern="[ a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,50}"  data-bs-toggle="tooltip" data-bs-title="Ingrese sólo letras (largo max. 50)" 
+           value="@Model.nombreCompleto">
+</div>
+<div class="col-md-6">
+    <label for="loginUsuario" class="form-label">Nombre usuario</label>
+    <input type="text" class="form-control" id="loginUsuario" onkeypress="return ValCaract(event);" autocomplete="off" name="loginUsuario" value="@Model.loginUsuario">
+</div>
+<div class="col-md-6">
+    <label for="rut" class="form-label">Rut</label>
+    <input type="text" class="form-control" id="rut" name="rut" placeholder="11111111-1" 
+           pattern="^\d{7,8}[-][0-9kK]{1}$"  data-bs-toggle="tooltip" data-bs-title="Rut , ej: 11111111-1 y largo minimo 8 caracteres" 
+           value="@Model.rut">
+</div>
+<div class="col-md-6">
+    <label for="correo" class="form-label">Correo</label>
+    <input type="text" class="form-control" id="correo" onkeypress="return ValObservac(event);" name="correo" placeholder="name@example.com" 
+           pattern="@Html.Raw("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")" 
+            data-bs-toggle="tooltip" data-bs-title="@Html.Raw("Correo, Ej: micorreo@midominio.com. El largo debe ser entre 8 y 50 caracteres.")" 
+           value="@Model.correo">
+</div>
+<div class="col-md-6">
+    <label for="fono" class="form-label">Telefono</label>
+    <input type="text" class="form-control" id="fono" onkeypress="return ValFono(event);" placeholder="+56912345678" name="fono" 
+           pattern="[+569][0-9]{8,12}" 
+            data-bs-toggle="tooltip" data-bs-title="Debe comenzar con el signo +  y el largo debe ser mínimo 8 y máximo 12 caracteres" 
+           value="@Model.fono">
+</div>
+<div class="col-md-6">
+    <label for="pass" class="form-label">Contraseña</label>
+    <input type="password" class="form-control" onkeypress="return ValPassword(event);"  autocomplete="new-password"
+           pattern="@Html.Raw("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!$.$#% *? &amp;])([A-Za-z\\d$@$!$.$#% *? &amp;]|[^ ]){8,15}$")" 
+            data-bs-toggle="tooltip" data-bs-title="@Html.Raw("Contraseña debe contener letras (mayúsculas, minúsculas), números y al menos un caracter especial (@ . _ - ! # % & *) (largo mínimo 8 y máximo 15 caracteres)")"  
+           id="pass" name="pass">
+</div>
+<div class="col-md-6">
+    <label for="pass2" class="form-label">Confirmar contraseña</label>
+    <input type="password" class="form-control" id="pass2" name="pass2"  autocomplete="new-password">
+</div>
+<div class="col-md-6 form-check">
+    <input type="checkbox" class="form-check-input" id="isAdmin" name="isAdmin" value="@(Model.isAdmin ? "true" : "false")" @(Model.isAdmin ? "checked" : "")>
+    <label class="form-check-label" for="isAdmin">Usuario administrador</label>
+</div>
+<div class="col-md-6 form-check">
+    <input type="checkbox" class="form-check-input" id="activo" name="activo" value="@(Model.activo ? "true" : "false")" @(Model.activo ? "checked" : "")>
+    <label class="form-check-label" for="activo">Usuario Habilitado</label>
+</div>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    $("input[type=checkbox]").change(function () {
+        if ($(this).prop("checked")) {
+            $(this).val(true);
+        } else {
+            $(this).val(false);
+        }
+    });
+</script>

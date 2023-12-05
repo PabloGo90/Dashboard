@@ -1,0 +1,64 @@
+﻿@using Newtonsoft.Json
+@using Dashboard.Models
+@model ModItem
+<div class="card">
+    <h4 class="card-header">@Model.Nombre</h4>
+    <div class="card-body chart-container">
+        <canvas class="w-100" id="@string.Format("chart{0}",Model.Id)"></canvas>
+    </div>
+    <div class="card-footer text-body-secondary">
+        @foreach (ModGDataset ds in Model.gDatasets)
+        {
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="@string.Format("#ModalTable{0}",ds.Id)">
+                @string.Format("Ver datos {0}", ds.DsLabelTitle)
+            </button>
+        }
+    </div>
+</div>
+
+@*MODAL*@
+@foreach (ModGDataset ds in Model.gDatasets)
+{
+    <div class="modal modal-xl fade" id="@string.Format("ModalTable{0}",ds.Id)" tabindex="-1" aria-labelledby="@string.Format("ModalTable{0}",ds.DsLabelTitle)" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">@ds.DsLabelTitle</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" style="height:500px;">
+                        @Html.Partial("~/Views/Dashboard/Partials/_ModuleTable.cshtml", ds)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+    <script>
+    $(document).ready(function () {
+
+        let _data = jQuery.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.Grafico,
+                                                Newtonsoft.Json.Formatting.None,
+                                                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }
+                                                ))');
+
+        const ctx = document.getElementById('@string.Format("chart{0}", Model.Id)');
+        const myChart = new Chart(ctx, {
+            type: '@Model.html_TipoGrafico.ToLower()',
+            data: _data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                //scales: {
+                //    y: {
+                //        beginAtZero: true
+                //    }
+                //}
+            }
+        });
+
+        //myChart.register(Colors);
+    });
+    </script>

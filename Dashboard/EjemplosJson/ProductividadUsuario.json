@@ -1,0 +1,78 @@
+{
+    "nombre": "Dashboard usuarios",
+    "nombreAgrupadorMenu": "Productividad",
+    "descripcion": "",
+    "nombreMenu": "Usuarios",
+    "nombreIconoMenu": "file-earmark",
+    "orden": 2,
+    "activo": "Y",
+    "parametros": [
+      {
+        "nombreParSP": "idUser",
+        "nombreParFiltro": "Usuario",
+        "valorDefecto": "",
+        "obligatorio": 1,
+        "tipo": "INT",
+        "tipoHtml": "SELECT",
+        "selectListSPData": "spGetDshDataUsuarios",
+        "orden": 3,
+        "largoMax": 0,
+        "validacion": "",
+        "validacionCondicion": "",
+        "validacionCondicionValor": "",
+        "largoMin": 0,
+        "valorMin": "",
+        "valorMax": ""
+      },
+      {
+        "nombreParSP": "fechaDesde",
+        "nombreParFiltro": "fecha Desde",
+        "valorDefecto": "LASTMONTH",
+        "obligatorio": 1,
+        "tipo": "DATE",
+        "tipoHtml": "DATE",
+        "selectListSPData": "",
+        "orden": 2,
+        "largoMax": 0,
+        "validacion": "",
+        "validacionCondicion": "",
+        "validacionCondicionValor": "",
+        "largoMin": 0,
+        "valorMin": "",
+        "valorMax": ""
+      },
+      {
+        "nombreParSP": "fechaHasta",
+        "nombreParFiltro": "fecha Hasta",
+        "valorDefecto": "NOW",
+        "obligatorio": 1,
+        "tipo": "DATE",
+        "tipoHtml": "DATE",
+        "selectListSPData": "",
+        "orden": 2,
+        "largoMax": 0,
+        "validacion": "",
+        "validacionCondicion": "",
+        "validacionCondicionValor": "",
+        "largoMin": 0,
+        "valorMin": "",
+        "valorMax": ""
+      }
+    ],
+    "detalles": [
+      {
+        "nombreGrafico": "Productividad usuario",
+        "nombreCorto": "usuario",
+        "tipoGrafico": "BAR",
+        "dataset": [
+          {
+            "dsTitulo": "Productividad usr",
+            "nombreSP": "spGetDshResumenActividadUsuario",
+            "getLabelFromColumn": "Usuario",
+            "getDataFromColumn": "Total",
+            "dataOperation": "SUM"
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,58 @@
+{
+  "nombre": "Dashboard productividad",
+  "nombreAgrupadorMenu": "Productividad",
+  "descripcion": "",
+  "nombreMenu": "Anual",
+  "nombreIconoMenu": "file-earmark",
+  "orden": 1,
+  "activo": "Y",
+  "parametros": [
+    {
+      "nombreParSP": "ano",
+      "nombreParFiltro": "Año",
+      "valorDefecto": "",
+      "obligatorio": 1,
+      "tipo": "INT",
+      "tipoHtml": "SELECT",
+      "selectListSPData": "spGetDshLast5years",
+      "orden": 1,
+      "largoMax": 0,
+      "validacion": "",
+      "validacionCondicion": "",
+      "validacionCondicionValor": "",
+      "largoMin": 0,
+      "valorMin": "",
+      "valorMax": ""
+    }
+  ],
+  "detalles": [
+    {
+      "nombreGrafico": "Resumen Actividad anual",
+      "nombreCorto": "Actividad",
+      "tipoGrafico": "PIE",
+      "dataset": [
+        {
+          "dsTitulo": "Ultimo año",
+          "nombreSP": "spGetDshResumenActividadAno",
+          "getLabelFromColumn": "Actividad",
+          "getDataFromColumn": "Total",
+          "dataOperation": "SUM"
+        }
+      ]
+    },
+    {
+      "nombreGrafico": "Volumen mensual",
+      "nombreCorto": "Volumen",
+      "tipoGrafico": "BAR",
+      "dataset": [
+        {
+          "dsTitulo": "Ultimo año",
+          "nombreSP": "spGetDshResumenActividadAno",
+          "getLabelFromColumn": "Mes",
+          "getDataFromColumn": "Total",
+          "dataOperation": "SUM"
+        }
+      ]
+    }
+  ]
+}

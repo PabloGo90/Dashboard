@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("LogIn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <img class="mb-4" src="../Content/Img/site-logo.png" alt="" width="100%;">
+    <h1 class="h3 mb-3 fw-normal">Iniciar sesión</h1>
+    <div class="form-floating">
+        <input type="text" name="Usuario" id="Usuario" class="form-control" placeholder="Usuario" required>
+        <label for="Usuario">Usuario</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" name="Password" id="Password" class="form-control" placeholder="Contraseña" minlength="4" required>
+        <label for="Password">Contraseña</label>
+    </div>
+    <div class="form-check text-start my-3" style="display:none;">
+        @*<input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault"> Remember me </label>*@
+        @*<a class="small" href="password.html">Olvido contraseña?</a>*@
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2 custColor">Ingresar</button>
+    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+}

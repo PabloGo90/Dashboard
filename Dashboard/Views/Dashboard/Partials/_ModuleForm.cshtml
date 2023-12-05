@@ -1,0 +1,45 @@
+﻿@using Dashboard.Models
+@model ModInfo
+
+<form class="row" id="@Model.html_Form">
+    <input type="hidden" name="id" id="ModId" value="@Model.Id" />
+    @*<div class="col-md-3"><h1 class="h2">@Model.TituloNombre</h1></div>*@
+    @foreach (ModParametros par in Model.Parametros)
+    {
+        if (par.TipoHtml == AppEnums.ParamTipoHtml.SELECT)
+        {
+            @Html.Partial("~/Views/Dashboard/Partials/_ModuleFormInputSelect.cshtml", par)
+        }
+        else
+        {
+            <div class="col-md-3 mb-2">
+                <label for="@par.htmlId" class="form-label">@par.NombreParFiltro</label>
+                <input type="@par.htmlType" name="@par.htmlName" class="form-control" id="@par.htmlId" value="@par.htmlValue">
+            </div>
+        }
+    }
+    <div class="col align-self-end mb-2">
+        <button class="btn btn-primary custColor" type="submit" style="min-width:150px;">Buscar</button>
+    </div>
+
+    @if (@ViewBag.ShowCrud == "Y")
+    {
+        <div class="col-md-3 align-self-end mb-2">
+            <a class="btn btn-warning" href="@(ViewBag.BaseUrl + "/DashboardCrud/Search?nombre="+ Model.Menu.Nombre.Replace(" ","+"))" role="button">Configurar Dashboard</a>
+        </div>
+    }
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("form#@Model.html_Form").on("submit", function (e) {
+            e.preventDefault();
+
+            let params = $(this).find('input,select').filter(function () {
+                return ((!!this.value) && (!!this.name));
+            }).serialize();
+
+            window.location.href = document.location.origin + "@ViewBag.BaseUrl" + "/Dashboard/Search?" + params;
+        });
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Dashboard.Models.UsuarioSistema>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mantenedor de usuarios</h2>
+<div class="pt-2 pb-2 mb-3 border-bottom">
+    @using (Html.BeginForm("Search", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "row align-items-end" }))
+    {
+        <div class="col-auto">
+            <label for="username" class="form-label">Usuario</label>
+        </div>
+        <div class="col-4">
+            <input type="text" class="form-control" id="username" name="username" value="" placeholder="Buscar por nombre o por usuario">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary custColor" type="submit" style="min-width:150px;">Buscar</button>
+        </div>
+        <div class="col-auto">
+            @Html.ActionLink("Crear nuevo", "Create", null, new { @class = "btn btn-primary", @role = "button" })
+        </div>
+    }
+</div>
+<div class="row">
+    <table class="table-responsive" id="UserSearchTable">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Rut</th>
+                <th>Nombre completo</th>
+                <th>Telefono</th>
+                <th>E-Mail</th>
+                <th>Activo</th>
+                <th>Rol Administrador</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.loginUsuario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.rut)</td>
+                    <td>@Html.DisplayFor(modelItem => item.nombreCompleto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.fono)  </td>
+                    <td>@Html.DisplayFor(modelItem => item.correo)  </td>
+                    <td>@(item.activo ? "Si" : "No")  </td>
+                    <td>@(item.isAdmin ? "Si" : "No")  </td>
+                    <td>@Html.ActionLink("Actualizar", "Edit", new { id = item.idUser }, new { @class = "btn btn-warning btn-sm" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#UserSearchTable', { info: false, searching: false });
+    });
+</script>

@@ -1,0 +1,27 @@
+﻿@using Dashboard.Models
+@model List<ModHome>
+@{
+    ViewBag.Title = "Home";
+    ViewBag.PageTitle = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="p-2 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-1">
+        <img src="@string.Format("{0}/Content/img/{1}", ViewBag.BaseUrl, ViewBag.ImgEmpresa)" class="img-fluid" title="logo" />
+    </div>
+</div>
+<div class="row">
+    @foreach (ModHome mod in Model)
+    {
+        <div class="col-3">
+            <div class="card text-center mb-3">
+                <img src="@string.Format("{0}/Content/img/{1}", ViewBag.BaseUrl, mod.Img)" class="card-img-top p-5" title="@mod.Nombre" />
+                <div class="card-body">
+                    <h5 class="card-title">@mod.Nombre</h5>
+                    <p class="card-text" style="height:50px;">@mod.Descripcion</p>
+                    <a href="@string.Format("{0}/Dashboard/Index?Id={1}", ViewBag.BaseUrl, mod.Id)" class="btn btn-primary custColor">Ver dashboard</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

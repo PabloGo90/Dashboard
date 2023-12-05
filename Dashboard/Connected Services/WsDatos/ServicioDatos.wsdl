@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos">
+      <s:element name="ObtenerRutaAlmacenamientoECM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pvarCodAlmacenamiento" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerRutaAlmacenamientoECMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerRutaAlmacenamientoECMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutaConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pvarAplicaion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarConexion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarStoreProcedure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarParametros" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutaConsultaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EjecutaConsultaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutaConsultaDt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pvarAplicaion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarConexion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarStoreProcedure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarParametros" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pvarParametrosdt">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutaConsultaDtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EjecutaConsultaDtResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtenerRutaAlmacenamientoECMSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerRutaAlmacenamientoECM" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerRutaAlmacenamientoECMSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerRutaAlmacenamientoECMResponse" />
+  </wsdl:message>
+  <wsdl:message name="EjecutaConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:EjecutaConsulta" />
+  </wsdl:message>
+  <wsdl:message name="EjecutaConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:EjecutaConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EjecutaConsultaDtSoapIn">
+    <wsdl:part name="parameters" element="tns:EjecutaConsultaDt" />
+  </wsdl:message>
+  <wsdl:message name="EjecutaConsultaDtSoapOut">
+    <wsdl:part name="parameters" element="tns:EjecutaConsultaDtResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServicioDatosSoap">
+    <wsdl:operation name="ObtenerRutaAlmacenamientoECM">
+      <wsdl:input message="tns:ObtenerRutaAlmacenamientoECMSoapIn" />
+      <wsdl:output message="tns:ObtenerRutaAlmacenamientoECMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsulta">
+      <wsdl:input message="tns:EjecutaConsultaSoapIn" />
+      <wsdl:output message="tns:EjecutaConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsultaDt">
+      <wsdl:input message="tns:EjecutaConsultaDtSoapIn" />
+      <wsdl:output message="tns:EjecutaConsultaDtSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServicioDatosSoap" type="tns:ServicioDatosSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerRutaAlmacenamientoECM">
+      <soap:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/ObtenerRutaAlmacenamientoECM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsulta">
+      <soap:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/EjecutaConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsultaDt">
+      <soap:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/EjecutaConsultaDt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicioDatosSoap12" type="tns:ServicioDatosSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerRutaAlmacenamientoECM">
+      <soap12:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/ObtenerRutaAlmacenamientoECM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsulta">
+      <soap12:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/EjecutaConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutaConsultaDt">
+      <soap12:operation soapAction="http://tempuri.org/wsConsultaDatosCarga/ServicioDatos/EjecutaConsultaDt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioDatos">
+    <wsdl:port name="ServicioDatosSoap" binding="tns:ServicioDatosSoap">
+      <soap:address location="http://10.101.92.50/wsConsultaDatosCarga2/ServicioDatos.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicioDatosSoap12" binding="tns:ServicioDatosSoap12">
+      <soap12:address location="http://10.101.92.50/wsConsultaDatosCarga2/ServicioDatos.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,35 @@
+﻿@using System.Data
+@using Dashboard.Models
+@model  ModGDataset
+
+<table class="table" id="@string.Format("datatable{0}_{1}", Model.DsLabelTitle.Replace(" ",""), Model.Id)">
+    <thead>
+        <tr>
+            @foreach (DataColumn col in Model.dtResProcedimiento.Columns)
+            {
+                <th>
+                    @(col.ToString())
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        @foreach (DataRow row in Model.dtResProcedimiento.Rows)
+        {
+            <tr>
+                @foreach (DataColumn col in Model.dtResProcedimiento.Columns)
+                {
+                    <td>
+                        @(row[col].ToString())
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<script>
+    $(document).ready(function () {
+        new DataTable('@string.Format("#datatable{0}_{1}", Model.DsLabelTitle.Replace(" ", ""), Model.Id)');
+    });
+</script>*@
