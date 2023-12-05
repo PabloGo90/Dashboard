@@ -3,3 +3,6 @@
 ################################################################################
 
 /Dashboard/obj
+/packages
+/.vs/DashboardGenerico/v17
+/Dashboard/bin
